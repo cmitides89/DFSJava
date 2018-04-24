@@ -42,7 +42,7 @@ public class Assignment6{
         int totalEdges = scan.nextInt(); 
         scan.close();
 
-        LinkedList<Integer>[] myAdjacencyList = adjacencyList(totalNodes, totalEdges);
+        LinkedList<Vertex>[] myAdjacencyList = adjacencyList(totalNodes, totalEdges);
         printingFunction(myAdjacencyList);
        
         //measure DFS run times
@@ -51,21 +51,23 @@ public class Assignment6{
     //Adjacency List: an array of linked lists, size of the array is equal to number of vertices. 
     //Let the array be array[] An entry array[i] represents the linked list of vertices adjacent to the ith
     //vertex
-    public static LinkedList<Integer>[] adjacencyList(int totalNodes, int totalEdges){
+    public static LinkedList<Vertex>[] adjacencyList(int totalNodes, int totalEdges){
         Random random = new Random();
         //number of nodes is how long the array will be
-        LinkedList<Integer>[] adjList = new LinkedList[totalNodes];
+        LinkedList<Vertex>[] adjList = new LinkedList[totalNodes];
         //populate the array with new linkedlists
         for(int i = 0; i < totalNodes; i++){
             //this will represent the node's neighbors
-            adjList[i] = new LinkedList<Integer>();
+            adjList[i] = new LinkedList<Vertex>();
         }
         //for N edges, keep connecting nodes with eachother
         while(totalEdges != 0){
-            int node = (random.nextInt(totalNodes + 1));
-            int neighborNode = (random.nextInt(totalNodes + 1));
+            Vertex node = new Vertex(); 
+            node.vertexNo = (random.nextInt(totalNodes + 1));
+            Vertex neighborNode = new Vertex();
+            neighborNode.vertexNo = (random.nextInt(totalNodes + 1));
             // addEdge(adjList, node, neighborNode);
-            adjList[node].add(neighborNode);
+            adjList[node.vertexNo].add(neighborNode);
             totalEdges --;
         }
         
@@ -92,20 +94,20 @@ public class Assignment6{
         return adjList;
     }
 
-    public static void addEdge(LinkedList<Integer>[] adjList, int node, int neighbor){
-        if(node > adjList.length || neighbor > adjList.length){
-            System.out.println("You cant have a node or a neighbor larger than the adjlist size!");
-            return;
-        }
-        adjList[node].add(neighbor);
-    }
+    // public static void addEdge(LinkedList<Vertex>[] adjList, int node, int neighbor){
+    //     if(node > adjList.length || neighbor > adjList.length){
+    //         System.out.println("You cant have a node or a neighbor larger than the adjlist size!");
+    //         return;
+    //     }
+    //     adjList[node].add(neighbor);
+    // }
 
-    public static void printingFunction(LinkedList<Integer>[] myAdjacencyList){
+    public static void printingFunction(LinkedList<Vertex>[] myAdjacencyList){
        for(int i = 0; i < myAdjacencyList.length; i++){
            System.out.println("Adjacency List of vertex "+ i);
            System.out.print("head");
-           for(int pCrawl: myAdjacencyList[i]){
-               System.out.print(" ->" +pCrawl);
+           for(Vertex pCrawl: myAdjacencyList[i]){
+               System.out.print(" ->" +pCrawl.vertexNo);
            }
            System.out.println("\n");
        }
@@ -113,8 +115,8 @@ public class Assignment6{
 
 
     //DFS 
-    public void dfs(LinkedList<Integer>[] adjList){
+    // public void dfs(LinkedList<Vertex>[] adjList){
         
-    }
+    // }
 
 }
